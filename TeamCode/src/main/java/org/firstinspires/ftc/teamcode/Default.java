@@ -23,6 +23,7 @@ public abstract class Default extends OpMode {
         rearRight.setDirection(DcMotorSimple.Direction.FORWARD);
         frontRight.setDirection(DcMotorSimple.Direction.FORWARD);
 
+        setDriveRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         setDriveRunMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         setDriveZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
