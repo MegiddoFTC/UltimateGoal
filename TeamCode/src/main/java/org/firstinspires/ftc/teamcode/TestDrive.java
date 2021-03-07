@@ -14,5 +14,10 @@ public class TestDrive extends Default {
         } else {
             powerMotors(- gamepad1.left_stick_y, - gamepad1.right_stick_y);
         }
+
+        if (gamepad1.a) {
+            telemetry.addData("a", "");
+            telemetry.update();
+        }
     }
 }
