@@ -1,5 +1,4 @@
 package org.firstinspires.ftc.teamcode;
 
-public class IDK {
-
+public class GG {
 }
