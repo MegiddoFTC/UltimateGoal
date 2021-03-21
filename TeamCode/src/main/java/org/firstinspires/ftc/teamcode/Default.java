@@ -12,7 +12,7 @@ public abstract class Default extends OpMode {
     protected DcMotor rearRight;
     protected DcMotor frontRight;
 
-    protected DcMotorEx pumpMotor;
+    protected DcMotor pumpMotor;
 
     @Override
     public void init() {
@@ -20,11 +20,13 @@ public abstract class Default extends OpMode {
         frontLeft = hardwareMap.dcMotor.get("FrontLeft");
         rearRight = hardwareMap.dcMotor.get("RearRight");
         frontRight = hardwareMap.dcMotor.get("FrontRight");
+        pumpMotor = hardwareMap.dcMotor.get("PumpMotor");
 
         rearLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         rearRight.setDirection(DcMotorSimple.Direction.FORWARD);
         frontRight.setDirection(DcMotorSimple.Direction.FORWARD);
+        pumpMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
         setDriveRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         setDriveRunMode(DcMotor.RunMode.RUN_USING_ENCODER);
