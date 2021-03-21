@@ -58,7 +58,7 @@ public abstract class Default extends OpMode {
         frontLeft.setZeroPowerBehavior(zeroPowerBehavior) ;
         rearRight.setZeroPowerBehavior(zeroPowerBehavior) ;
         frontRight.setZeroPowerBehavior(zeroPowerBehavior);
-        pumpMotor.setZeroPowerBehavior(zeroPowerBehavior);
+        pumpMotor.setZeroPowerBehavior(zeroPowerBehavior) ;
     }
 
     protected void setDriveRunMode(DcMotor.RunMode runMode) {
