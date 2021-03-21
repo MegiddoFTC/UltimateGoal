@@ -42,7 +42,7 @@ public abstract class Default extends OpMode {
         powerMotors(power, power);
     } // stop robot
 
-    protected void powerMotors(double left, double right) { // call to move robot
+    protected void powerMotors(double left, double right) { // call to set power
         powerMotors(left, left, right, right);
     }
 
@@ -58,6 +58,7 @@ public abstract class Default extends OpMode {
         frontLeft.setZeroPowerBehavior(zeroPowerBehavior) ;
         rearRight.setZeroPowerBehavior(zeroPowerBehavior) ;
         frontRight.setZeroPowerBehavior(zeroPowerBehavior);
+        pumpMotor.setZeroPowerBehavior(zeroPowerBehavior);
     }
 
     protected void setDriveRunMode(DcMotor.RunMode runMode) {
@@ -65,6 +66,7 @@ public abstract class Default extends OpMode {
         frontLeft.setMode(runMode) ;
         rearRight.setMode(runMode) ;
         frontRight.setMode(runMode);
+        pumpMotor.setMode(runMode) ;
     }
 
     protected void driveLeft() {
