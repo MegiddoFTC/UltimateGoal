@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 public abstract class Default extends OpMode {
@@ -10,6 +11,8 @@ public abstract class Default extends OpMode {
     protected DcMotor frontLeft;
     protected DcMotor rearRight;
     protected DcMotor frontRight;
+
+    protected DcMotorEx pumpMotor;
 
     @Override
     public void init() {
@@ -31,21 +34,21 @@ public abstract class Default extends OpMode {
 
     protected void stopMotors() {
         powerMotors(0);
-    }
+    } //call to stop robot
 
     protected void powerMotors(double power) {
         powerMotors(power, power);
-    }
+    } // stop robot
 
-    protected void powerMotors(double left, double right) {
+    protected void powerMotors(double left, double right) { // call to move robot
         powerMotors(left, left, right, right);
     }
 
-    protected void powerMotors(double RLeft, double FLeft, double RRight, double FRight) {
-        rearLeft.setPower(RLeft);
-        frontLeft.setPower(FLeft);
-        rearRight.setPower(RRight);
-        frontRight.setPower(FRight);
+    protected void powerMotors(double RLeft, double FLeft, double RRight, double FRight) { // set power
+        rearLeft.setPower(-RLeft);
+        frontLeft.setPower(-FLeft);
+        rearRight.setPower(-RRight);
+        frontRight.setPower(-FRight);
     }
 
     protected void setDriveZeroPowerBehavior(DcMotor.ZeroPowerBehavior zeroPowerBehavior) {
@@ -69,4 +72,10 @@ public abstract class Default extends OpMode {
     protected void driveRight() {
         powerMotors(-1, 1, 1, -1);
     }
+
+    protected void pumpPower(double pumpPower) {
+    pumpMotor.setPower(pumpPower);
+    }
 }
+
+
