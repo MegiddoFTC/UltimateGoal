@@ -13,14 +13,15 @@ public abstract class Default extends OpMode {
     protected DcMotor frontRight;
 
     protected DcMotor pumpMotor;
-
+    protected DcMotor pumpMotor2;
     @Override
     public void init() {
-        rearLeft = hardwareMap.dcMotor.get("RearLeft")    ;
-        frontLeft = hardwareMap.dcMotor.get("FrontLeft")  ;
-        rearRight = hardwareMap.dcMotor.get("RearRight")  ;
-        frontRight = hardwareMap.dcMotor.get("FrontRight");
-        pumpMotor = hardwareMap.dcMotor.get("PumpMotor")  ;
+        rearLeft  = hardwareMap.dcMotor.get("RearLeft")  ;
+        frontLeft = hardwareMap.dcMotor.get("FrontLeft") ;
+        rearRight = hardwareMap.dcMotor.get("RearRight") ;
+        frontRight= hardwareMap.dcMotor.get("FrontRight");
+        pumpMotor = hardwareMap.dcMotor.get("PumpMotor") ;
+        pumpMotor2 = hardwareMap.dcMotor.get("PumpMotor2") ;
 
         rearLeft.setDirection(DcMotorSimple.Direction.REVERSE)  ;
         frontLeft.setDirection(DcMotorSimple.Direction.REVERSE) ;
@@ -77,8 +78,9 @@ public abstract class Default extends OpMode {
         powerMotors(-1, 1, 1, -1);
     }
 
-    protected void pumpPower(double pumpPower) {
+    protected void pumpPower(double pumpPower) { //set power in the pump motor
     pumpMotor.setPower(pumpPower);
+    pumpMotor2.setPower(pumpPower);
     }
 }
 

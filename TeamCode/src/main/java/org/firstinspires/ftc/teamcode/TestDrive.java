@@ -17,11 +17,14 @@ public class TestDrive extends Default {
 
         powerMotors(- gamepad1.left_stick_y, - gamepad1.right_stick_y);
 
-        if (gamepad1.a ) { //pump
+        if (gamepad1.a) { //pump
             pumpPower(1);
         }
         else if (gamepad1.b){
             pumpPower(-1);
+        }
+        else if (gamepad1.y){
+            pumpPower(0);
         }
 
     }
