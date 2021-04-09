@@ -13,7 +13,7 @@ public abstract class Default extends OpMode {
 
     protected DcMotor pumpMotor;
     protected DcMotor shootMotor;
-    protected DcMotor toppMotor;
+    protected DcMotor feedMotor;
     //protected DcMotor pumpMotor2;
 
     int powerMecan = 35;
@@ -29,14 +29,15 @@ public abstract class Default extends OpMode {
         pumpMotor = hardwareMap.get(DcMotor.class, "PumpMotor");
         //pumpMotor2 = hardwareMap.get(DcMotorEx.class, "PumpMotor2");
         shootMotor = hardwareMap.get(DcMotor.class,"shootMotor");
-        toppMotor = hardwareMap.get(DcMotor.class,"ToppMotor");
+        feedMotor = hardwareMap.get(DcMotor.class,"ToppMotor");
 
         rearLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         rearRight.setDirection(DcMotorSimple.Direction.FORWARD);
         frontRight.setDirection(DcMotorSimple.Direction.FORWARD);
+
         pumpMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        toppMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        feedMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         //pumpMotor2.setDirection(DcMotorSimple.Direction.FORWARD);
         shootMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         setDriveRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -44,6 +45,7 @@ public abstract class Default extends OpMode {
 
 
         setDriveZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        resetStartTime();
     }
 
     protected void stopMotors() {
@@ -72,7 +74,7 @@ public abstract class Default extends OpMode {
         frontRight.setZeroPowerBehavior(zeroPowerBehavior);
         pumpMotor.setZeroPowerBehavior(zeroPowerBehavior) ;
         shootMotor.setZeroPowerBehavior(zeroPowerBehavior);
-        toppMotor.setZeroPowerBehavior(zeroPowerBehavior);
+        feedMotor.setZeroPowerBehavior(zeroPowerBehavior);
         //pumpMotor2.setZeroPowerBehavior(zeroPowerBehavior);
     }
 
@@ -83,16 +85,16 @@ public abstract class Default extends OpMode {
         frontRight.setMode(runMode);
         pumpMotor.setMode(runMode) ;
         shootMotor.setMode(runMode);
-        toppMotor.setMode(runMode);
+        feedMotor.setMode(runMode);
         //pumpMotor2.setMode(runMode);
     }
 
     protected void driveLeft() {
-            powerDriveMotors(powerMecan, -powerMecan, -powerMecan, powerMecan);
+        powerDriveMotors(-powerMecan, powerMecan, -powerMecan, powerMecan);
     }
 
     protected void driveRight() {
-            powerDriveMotors(-powerMecan, powerMecan, powerMecan, -powerMecan);
+        powerDriveMotors(powerMecan, -powerMecan, powerMecan, -powerMecan);
     }
 
     protected void pumpPower(double pumpPower) { //set power in the pump motor
@@ -103,7 +105,7 @@ public abstract class Default extends OpMode {
         shootMotor.setPower(shootPower);
     }
     protected  void  toppPower(double toppPower){
-        toppMotor.setPower(toppPower);
+        feedMotor.setPower(toppPower);
     }
 }
 
