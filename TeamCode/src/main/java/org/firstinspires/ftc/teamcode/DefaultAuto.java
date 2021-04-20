@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+import java.sql.ResultSet;
+
 public abstract class DefaultAuto extends Default {
 
     @Override

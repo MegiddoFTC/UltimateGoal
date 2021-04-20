@@ -52,14 +52,9 @@ public abstract class Default extends OpMode {
         shootMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         setDriveRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         setDriveRunMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rearLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rearRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         woblleServo.setPosition(wobServoPosition);
 
-
-        setDriveZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        setDriveZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         resetStartTime();
     }
 

@@ -14,7 +14,7 @@ public class TestDrive extends Default {
         } else if (gamepad1.right_bumper || gamepad1.dpad_right) {
             driveRight();
         } else {
-            powerDriveMotors(-gamepad1.left_stick_y, -gamepad1.right_stick_y);
+            arcadeControl(gamepad1.right_stick_y,-gamepad1.right_stick_x,-gamepad1.left_stick_x);
         }
 
         telemetry.addData("ShootMotor",shootMotor.getPower());
@@ -69,4 +69,10 @@ public class TestDrive extends Default {
     public void stop() {
         time = Double.MAX_VALUE;
     }
+
+    void arcadeControl(double y,double x,double spin){
+        powerDriveMotors((-1*(spin+y)/1.2)-x,(-1*(spin+y)/1.2)+x,((spin+-y)/1.2)-x,((spin+-y)/1.2)+x);
+    }
+
 }
+
