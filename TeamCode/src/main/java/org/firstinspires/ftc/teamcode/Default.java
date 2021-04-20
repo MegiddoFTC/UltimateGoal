@@ -3,6 +3,9 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
+
+import org.slf4j.spi.MDCAdapter;
 
 public abstract class Default extends OpMode {
 
@@ -14,11 +17,13 @@ public abstract class Default extends OpMode {
     protected DcMotor pumpMotor;
     protected DcMotor shootMotor;
     protected DcMotor feedMotor;
+   // protected DcMotor wobMotor; // woblle motor
     //protected DcMotor pumpMotor2;
 
+    protected Servo woblleServo;
+    double wobServoPosition =0.0;
     int powerMecan = 35;
-    int pumpLeverEnter =0;
-    int pumpLeverOut = 0;
+
 
     @Override
     public void init() {
@@ -30,11 +35,16 @@ public abstract class Default extends OpMode {
         //pumpMotor2 = hardwareMap.get(DcMotorEx.class, "PumpMotor2");
         shootMotor = hardwareMap.get(DcMotor.class,"shootMotor");
         feedMotor = hardwareMap.get(DcMotor.class,"ToppMotor");
+        //wobMotor = hardwareMap.get(DcMotor.class,"wobMotor");
+        woblleServo = hardwareMap.servo.get("woblleServo");
 
         rearLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         rearRight.setDirection(DcMotorSimple.Direction.FORWARD);
         frontRight.setDirection(DcMotorSimple.Direction.FORWARD);
+
+      woblleServo.setDirection(Servo.Direction.FORWARD);
+        //wobMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
         pumpMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         feedMotor.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -42,6 +52,11 @@ public abstract class Default extends OpMode {
         shootMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         setDriveRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         setDriveRunMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rearLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rearRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        woblleServo.setPosition(wobServoPosition);
 
 
         setDriveZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
@@ -55,7 +70,6 @@ public abstract class Default extends OpMode {
     protected void powerDriveMotors(double power) {
         powerDriveMotors(power, power);
     } // stop robot
-
     protected void powerDriveMotors(double left, double right) { // call to set power
         powerDriveMotors(left, left, right, right);
     }
@@ -75,6 +89,7 @@ public abstract class Default extends OpMode {
         pumpMotor.setZeroPowerBehavior(zeroPowerBehavior) ;
         shootMotor.setZeroPowerBehavior(zeroPowerBehavior);
         feedMotor.setZeroPowerBehavior(zeroPowerBehavior);
+       // wobMotor.setZeroPowerBehavior(zeroPowerBehavior);
         //pumpMotor2.setZeroPowerBehavior(zeroPowerBehavior);
     }
 
@@ -86,6 +101,7 @@ public abstract class Default extends OpMode {
         pumpMotor.setMode(runMode) ;
         shootMotor.setMode(runMode);
         feedMotor.setMode(runMode);
+       // wobMotor.setMode(runMode);
         //pumpMotor2.setMode(runMode);
     }
 
@@ -107,6 +123,11 @@ public abstract class Default extends OpMode {
     protected  void  toppPower(double toppPower){
         feedMotor.setPower(toppPower);
     }
+
+    protected  void woblleServo (){
+        woblleServo.setPosition(wobServoPosition);
+    }
+
 }
 
 
