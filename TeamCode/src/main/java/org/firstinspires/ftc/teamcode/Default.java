@@ -125,9 +125,9 @@ public abstract class Default extends OpMode {
         frontLeft.setZeroPowerBehavior(zeroPowerBehavior) ;
         rearRight.setZeroPowerBehavior(zeroPowerBehavior) ;
         frontRight.setZeroPowerBehavior(zeroPowerBehavior);
-        pumpMotor.setZeroPowerBehavior(zeroPowerBehavior) ;
-        shootMotor.setZeroPowerBehavior(zeroPowerBehavior);
-        feedMotor.setZeroPowerBehavior(zeroPowerBehavior);
+//        pumpMotor.setZeroPowerBehavior(zeroPowerBehavior) ;
+//        shootMotor.setZeroPowerBehavior(zeroPowerBehavior);
+//        feedMotor.setZeroPowerBehavior(zeroPowerBehavior);
        // wobMotor.setZeroPowerBehavior(zeroPowerBehavior);
         //pumpMotor2.setZeroPowerBehavior(zeroPowerBehavior);
     }

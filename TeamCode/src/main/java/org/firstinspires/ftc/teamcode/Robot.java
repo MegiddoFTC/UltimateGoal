@@ -12,14 +12,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Robot {
+
     protected DcMotor rearLeft  ;
     protected DcMotor frontLeft ;
     protected DcMotor rearRight ;
     protected DcMotor frontRight;
 
+    protected DcMotor shootMotor2;
     protected DcMotor pumpMotor;
     protected DcMotor shootMotor;
-    protected DcMotor shootMotor2;
     protected DcMotor feedMotor;
     // protected DcMotor wobMotor; // woblle motor
     //protected DcMotor pumpMotor2;
@@ -28,7 +29,21 @@ public class Robot {
     protected Servo woblleLift1Servo;
     protected Servo woblleLift2Servo;
 
+    protected final List<Double> woblle_states = new ArrayList<>();
+    protected static int woblle_state = 0;
+    protected final List<Double> woblle_grab_states = new ArrayList<>();
+    protected static int woblle_grab_state = 0;
+
     public Robot(HardwareMap hardwareMap) {
+        woblle_states.add(0.0);
+        woblle_states.add(0.2);
+        woblle_states.add(0.35);
+        woblle_states.add(1.0);
+
+        woblle_grab_states.add(0.0);
+        woblle_grab_states.add(0.2);
+        woblle_grab_states.add(1.0);
+
         rearLeft  = hardwareMap.get(DcMotor.class, "RearLeft");
         frontLeft = hardwareMap.get(DcMotor.class, "FrontLeft");
         rearRight = hardwareMap.get(DcMotor.class, "RearRight");
@@ -75,5 +90,91 @@ public class Robot {
 
         //setDriveZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+    }
+
+    protected void stopMotors() {
+        powerDriveMotors(0);
+    } //call to stop robot
+
+    protected void powerDriveMotors(double power) {
+        powerDriveMotors(power, power);
+    } // stop robot
+    protected void powerDriveMotors(double left, double right) { // call to set power
+        powerDriveMotors(left, left, right, right);
+    }
+
+    protected void powerDriveMotors(double RLeft, double FLeft, double RRight, double FRight) { // set power
+        rearLeft.setPower(-RLeft)   ;
+        frontLeft.setPower(-FLeft)  ;
+        rearRight.setPower(-RRight) ;
+        frontRight.setPower(-FRight);
+    }
+
+    public void setDriveZeroPowerBehavior(DcMotor.ZeroPowerBehavior zeroPowerBehavior) {
+        rearLeft.setZeroPowerBehavior(zeroPowerBehavior)  ;
+        frontLeft.setZeroPowerBehavior(zeroPowerBehavior) ;
+        rearRight.setZeroPowerBehavior(zeroPowerBehavior) ;
+        frontRight.setZeroPowerBehavior(zeroPowerBehavior);
+//        pumpMotor.setZeroPowerBehavior(zeroPowerBehavior) ;
+//        shootMotor.setZeroPowerBehavior(zeroPowerBehavior);
+//        feedMotor.setZeroPowerBehavior(zeroPowerBehavior);
+        // wobMotor.setZeroPowerBehavior(zeroPowerBehavior);
+        //pumpMotor2.setZeroPowerBehavior(zeroPowerBehavior);
+    }
+
+    public void setDriveRunMode(DcMotor.RunMode runMode) {
+        rearLeft.setMode(runMode);
+        frontLeft.setMode(runMode);
+        rearRight.setMode(runMode);
+        frontRight.setMode(runMode);
+    }
+
+    public void driveLeft() {
+        powerDriveMotors(1, -1, -1, 1);
+    }
+
+    public void driveRight() {
+        powerDriveMotors(-1, 1, 1, -1);
+    }
+
+    public void pumpPower(double pumpPower) { //set power in the pump motor
+        //pumpMotor.setPower(pumpPower);
+        pumpMotor.setPower(pumpPower);
+    }
+    public  void shootPower(double shootPower){
+        shootMotor.setPower(shootPower);
+        shootMotor2.setPower(shootPower);
+    }
+    public  void  toppPower(double toppPower){
+        feedMotor.setPower(toppPower);
+    }
+
+    public  void woblleServo (double position){
+        woblleServo.setPosition(position);
+    }
+
+    public void setWoblleLift(double position) {
+        woblleLift1Servo.setPosition(position);
+        woblleLift2Servo.setPosition(position);
+    }
+
+    public void liftWoblle() {
+        setWoblleLift(woblle_states.get(
+                woblle_state = Util.clamp(woblle_state+1, 0, woblle_states.size()-1)));
+    }
+
+    public void lowerWoblle() {
+        setWoblleLift(woblle_states.get(
+                woblle_state = Util.clamp(woblle_state-1, 0, woblle_states.size()-1)));
+    }
+
+    public void openWoblle() {
+        woblleServo.setPosition(woblle_grab_states.get(
+                woblle_grab_state = Util.clamp(woblle_grab_state+1, 0, woblle_grab_states.size()-1)));
+    }
+
+    public void closeWoblle() {
+        woblleServo.setPosition(woblle_grab_states.get(
+                woblle_grab_state = Util.clamp(woblle_grab_state-1, 0, woblle_grab_states.size()-1)));
     }
 }
