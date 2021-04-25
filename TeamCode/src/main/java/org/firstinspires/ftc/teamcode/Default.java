@@ -7,6 +7,9 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.slf4j.spi.MDCAdapter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class Default extends OpMode {
 
     protected DcMotor rearLeft  ;
@@ -14,6 +17,7 @@ public abstract class Default extends OpMode {
     protected DcMotor rearRight ;
     protected DcMotor frontRight;
 
+    protected DcMotor shootMotor2;
     protected DcMotor pumpMotor;
     protected DcMotor shootMotor;
     protected DcMotor feedMotor;
@@ -21,9 +25,27 @@ public abstract class Default extends OpMode {
     //protected DcMotor pumpMotor2;
 
     protected Servo woblleServo;
-    double wobServoPosition =0.0;
-    int powerMecan = 35;
+    protected Servo woblleLift1Servo;
+    protected Servo woblleLift2Servo;
 
+    protected final List<Double> woblle_states = new ArrayList<>();
+    protected static int woblle_state = 0;
+    protected final List<Double> woblle_grab_states = new ArrayList<>();
+    protected static int woblle_grab_state = 0;
+
+    MegiddoGamepad Gamepad1 = new MegiddoGamepad();
+    MegiddoGamepad Gamepad2 = new MegiddoGamepad();
+
+    public Default() {
+        woblle_states.add(0.0);
+        woblle_states.add(0.2);
+        woblle_states.add(0.35);
+        woblle_states.add(1.0);
+
+        woblle_grab_states.add(0.0);
+        woblle_grab_states.add(0.2);
+        woblle_grab_states.add(1.0);
+    }
 
     @Override
     public void init() {
@@ -36,26 +58,48 @@ public abstract class Default extends OpMode {
         shootMotor = hardwareMap.get(DcMotor.class,"shootMotor");
         feedMotor = hardwareMap.get(DcMotor.class,"ToppMotor");
         //wobMotor = hardwareMap.get(DcMotor.class,"wobMotor");
-        woblleServo = hardwareMap.servo.get("woblleServo");
+        woblleServo = hardwareMap.servo.get("WoblleServo");
+        woblleLift1Servo = hardwareMap.servo.get("WoblleLift1Servo");
+        woblleLift2Servo = hardwareMap.servo.get("WoblleLift2Servo");
+        shootMotor2 = hardwareMap.get(DcMotor.class,"shootMotor2");
+
+
+        telemetry.addData("frontLeft", frontLeft);
+        telemetry.update();
 
         rearLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         rearRight.setDirection(DcMotorSimple.Direction.FORWARD);
         frontRight.setDirection(DcMotorSimple.Direction.FORWARD);
 
-      woblleServo.setDirection(Servo.Direction.FORWARD);
+        woblleServo.setDirection(Servo.Direction.FORWARD);
         //wobMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
         pumpMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         feedMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         //pumpMotor2.setDirection(DcMotorSimple.Direction.FORWARD);
-        shootMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        setDriveRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        setDriveRunMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        woblleServo.setPosition(wobServoPosition);
+        shootMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        shootMotor2.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        setDriveZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        //setDriveRunMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //setDriveRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //frontLeft.setTargetPosition(0);
+        //rearLeft.setTargetPosition(0);
+        //frontRight.setTargetPosition(0);
+        //rearRight.setTargetPosition(0);
+        //setDriveRunMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+//        woblleServo.setPosition(1);
+//        setWoblleLift(1);
+
+        //setDriveZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         resetStartTime();
+    }
+
+    @Override
+    public void stop() {
+        setDriveRunMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     protected void stopMotors() {
@@ -89,23 +133,18 @@ public abstract class Default extends OpMode {
     }
 
     protected void setDriveRunMode(DcMotor.RunMode runMode) {
-        rearLeft.setMode(runMode)  ;
-        frontLeft.setMode(runMode) ;
-        rearRight.setMode(runMode) ;
+        rearLeft.setMode(runMode);
+        frontLeft.setMode(runMode);
+        rearRight.setMode(runMode);
         frontRight.setMode(runMode);
-        pumpMotor.setMode(runMode) ;
-        shootMotor.setMode(runMode);
-        feedMotor.setMode(runMode);
-       // wobMotor.setMode(runMode);
-        //pumpMotor2.setMode(runMode);
     }
 
     protected void driveLeft() {
-        powerDriveMotors(-powerMecan, powerMecan, -powerMecan, powerMecan);
+        powerDriveMotors(1, -1, -1, 1);
     }
 
     protected void driveRight() {
-        powerDriveMotors(powerMecan, -powerMecan, powerMecan, -powerMecan);
+        powerDriveMotors(-1, 1, 1, -1);
     }
 
     protected void pumpPower(double pumpPower) { //set power in the pump motor
@@ -114,15 +153,40 @@ public abstract class Default extends OpMode {
     }
     protected  void shootPower(double shootPower){
         shootMotor.setPower(shootPower);
+        shootMotor2.setPower(shootPower);
     }
     protected  void  toppPower(double toppPower){
         feedMotor.setPower(toppPower);
     }
 
-    protected  void woblleServo (){
-        woblleServo.setPosition(wobServoPosition);
+    protected  void woblleServo (double position){
+        woblleServo.setPosition(position);
     }
 
+    protected void setWoblleLift(double position) {
+        woblleLift1Servo.setPosition(position);
+        woblleLift2Servo.setPosition(position);
+    }
+
+    protected void liftWoblle() {
+        setWoblleLift(woblle_states.get(
+                woblle_state = Util.clamp(woblle_state+1, 0, woblle_states.size()-1)));
+    }
+
+    protected void lowerWoblle() {
+        setWoblleLift(woblle_states.get(
+                woblle_state = Util.clamp(woblle_state-1, 0, woblle_states.size()-1)));
+    }
+
+    protected void openWoblle() {
+        woblleServo.setPosition(woblle_grab_states.get(
+                woblle_grab_state = Util.clamp(woblle_grab_state+1, 0, woblle_grab_states.size()-1)));
+    }
+
+    protected void closeWoblle() {
+        woblleServo.setPosition(woblle_grab_states.get(
+                woblle_grab_state = Util.clamp(woblle_grab_state-1, 0, woblle_grab_states.size()-1)));
+    }
 }
 
 
