@@ -27,6 +27,10 @@ public abstract class Default extends OpMode {
     protected Servo woblleServo;
     protected Servo woblleLift1Servo;
     protected Servo woblleLift2Servo;
+    protected Servo rightArm;
+    protected Servo leftArm;
+
+    int lever = 0;
 
     protected final List<Double> woblle_states = new ArrayList<>();
     protected static int woblle_state = 0;
@@ -41,8 +45,7 @@ public abstract class Default extends OpMode {
         woblle_states.add(0.2);
         woblle_states.add(0.35);
         woblle_states.add(1.0);
-
-        woblle_grab_states.add(0.0);
+           woblle_grab_states.add(0.0);
         woblle_grab_states.add(0.2);
         woblle_grab_states.add(1.0);
     }
@@ -62,6 +65,9 @@ public abstract class Default extends OpMode {
         woblleLift1Servo = hardwareMap.servo.get("WoblleLift1Servo");
         woblleLift2Servo = hardwareMap.servo.get("WoblleLift2Servo");
         shootMotor2 = hardwareMap.get(DcMotor.class,"shootMotor2");
+        rightArm = hardwareMap.servo.get("rightArm");
+        leftArm = hardwareMap.servo.get("leftArm");
+
 
 
         telemetry.addData("frontLeft", frontLeft);
@@ -73,6 +79,9 @@ public abstract class Default extends OpMode {
         frontRight.setDirection(DcMotorSimple.Direction.FORWARD);
 
         woblleServo.setDirection(Servo.Direction.FORWARD);
+        rightArm.setDirection(Servo.Direction.FORWARD);
+        leftArm.setDirection(Servo.Direction.FORWARD);
+
         //wobMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
         pumpMotor.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -186,6 +195,20 @@ public abstract class Default extends OpMode {
     protected void closeWoblle() {
         woblleServo.setPosition(woblle_grab_states.get(
                 woblle_grab_state = Util.clamp(woblle_grab_state-1, 0, woblle_grab_states.size()-1)));
+    }
+
+    protected void armsDown(){
+        leftArm.setPosition(0.975);
+        rightArm.setPosition(0.975);
+
+
+    }
+
+    protected void armsUp(){
+        leftArm.setPosition(0.6);
+        rightArm.setPosition(0.5);
+
+
     }
 }
 

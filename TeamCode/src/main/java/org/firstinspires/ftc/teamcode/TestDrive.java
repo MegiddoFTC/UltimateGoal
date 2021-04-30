@@ -37,7 +37,7 @@ public class TestDrive extends Default {
             pumpPower(0);
         }
         if (gamepad2.a){
-            shootPower(0.76);
+            shootPower(0.86);
         }
         else if (gamepad2.x){
             shootPower(0.67);
@@ -50,9 +50,9 @@ public class TestDrive extends Default {
         }
 
         if (gamepad2.right_bumper  ){
-            toppPower(1);
+            toppPower(0.76);
         } else if(gamepad2.left_bumper){
-            toppPower(-1);
+            toppPower(-0.76);
         } else {
             toppPower(0);
         }
@@ -68,6 +68,14 @@ public class TestDrive extends Default {
         } else if (Gamepad2.dpad_right_Pressed()) {
             closeWoblle();
         }
+
+        if (gamepad1.right_bumper){
+            armsDown();
+        }else if (gamepad1.left_bumper){
+            armsUp();
+        }
+
+
 
 
         telemetry.addData("ShootMotor",shootMotor.getPower());
