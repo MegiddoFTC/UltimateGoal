@@ -29,7 +29,6 @@ import com.qualcomm.robotcore.hardware.PIDCoefficients;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
-import android.graphics.Color;
 
 import org.firstinspires.ftc.robotcore.external.Func;
 import org.firstinspires.ftc.robotcore.external.JavaUtil;
@@ -76,7 +75,7 @@ public class Robot extends LinearOpMode{
 
     @Override
     public void runOpMode(){
-
+        new Robot(hardwareMap);
     }
 
     public Robot(HardwareMap hardwareMap) {
