@@ -29,7 +29,7 @@ public class TestDrive extends Default {
             //powerDriveMotors(-gamepad1.left_stick_y, -gamepad1.right_stick_y);
         }
 
-        if (gamepad2.right_trigger > 0) {//pump motor Enter on/off
+        if (gamepad2.right_trigger > 0.1) {//pump motor Enter on/off
             pumpPower(30);
         } else if (gamepad2.left_trigger > 0.1) {
             pumpPower(-30);
@@ -40,7 +40,7 @@ public class TestDrive extends Default {
             shootPower(0.86);
         }
         else if (gamepad2.x){
-            shootPower(0.67);
+            shootPower(0.65);
 
             //time = getRuntime();
         } else if (gamepad2.b){ //stop shoot and topp motors
@@ -50,9 +50,9 @@ public class TestDrive extends Default {
         }
 
         if (gamepad2.right_bumper  ){
-            toppPower(0.76);
+            toppPower(0.73);
         } else if(gamepad2.left_bumper){
-            toppPower(-0.76);
+            toppPower(-0.73);
         } else {
             toppPower(0);
         }
@@ -69,13 +69,37 @@ public class TestDrive extends Default {
             closeWoblle();
         }
 
-        if (gamepad1.right_bumper){
-            armsDown();
-        }else if (gamepad1.left_bumper){
-            armsUp();
+
+        if(gamepad1.left_trigger > 0.1){
+            driveLeft_slow();
+        }
+         else if  (gamepad1.right_trigger > 0.1){
+            driveRight_slow();
+        }
+        /*if (gamepad2.y) {
+            pressCount +=1;
+            if (pressCount == 1) {
+                press = 1;
+                pressCount = 0;
+            }
+
         }
 
+        if ((press==1)&&(lever==0)){
+            armsDown();
+            lever = 1;
+            press = 0;
+        }else if ((press ==1) && (lever == 1)) {
+            armsUp();
+            lever =0;
+            press = 0;
+        }*/
 
+        if (gamepad2.left_stick_y > 0.1){
+            armsDown();
+        }else  if (gamepad2.left_stick_y > -0.1){
+            armsUp();
+        }
 
 
         telemetry.addData("ShootMotor",shootMotor.getPower());
@@ -95,15 +119,8 @@ public class TestDrive extends Default {
     }
 
     void arcadeControl(double y,double x,double spin){
-        /*
-        double RL;
-        RL = (-1*(spin+y)/1.2)-x;
-        telemetry.addData("X: ",x);
-        telemetry.addData("Y: ",y);
-        telemetry.addData("RLeft ",rearLeft.getPowerFloat());
-        telemetry.addData("RLeft:",RL);*/
 
-        powerDriveMotors((-1*(spin+y)/1.2)-x,(-1*(spin+y)/1.2)+x,((spin+-y)/1.2)-x,((spin+-y)/1.2)+x);
+        powerDriveMotors((-1*(spin+y)/1.2)+x,(-1*(spin+y)/1.2)-x,((spin-y)/1.2)-x,((spin-y)/1.2)+x);
     }
 
 }

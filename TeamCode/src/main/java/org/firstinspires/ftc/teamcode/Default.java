@@ -30,7 +30,9 @@ public abstract class Default extends OpMode {
     protected Servo rightArm;
     protected Servo leftArm;
 
-    int lever = 0;
+    int lever = 0; // remember state of press odd/even
+    int press = 0; //indicate that botton was pressed
+    int pressCount = 0;
 
     protected final List<Double> woblle_states = new ArrayList<>();
     protected static int woblle_state = 0;
@@ -148,6 +150,15 @@ public abstract class Default extends OpMode {
         frontRight.setMode(runMode);
     }
 
+    protected void driveLeft_slow() {
+        powerDriveMotors(0.5, -0.5, -0.5, 0.5);
+    }
+    protected void driveRight_slow() {
+        powerDriveMotors(-0.5, 0.5, 0.5, -0.5);
+    }
+
+
+
     protected void driveLeft() {
         powerDriveMotors(1, -1, -1, 1);
     }
@@ -198,8 +209,8 @@ public abstract class Default extends OpMode {
     }
 
     protected void armsDown(){
-        leftArm.setPosition(0.975);
-        rightArm.setPosition(0.975);
+        leftArm.setPosition(0.97);
+        rightArm.setPosition(-0.87);
 
 
     }

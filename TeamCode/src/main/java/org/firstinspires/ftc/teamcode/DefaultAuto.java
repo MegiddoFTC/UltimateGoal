@@ -1,10 +1,13 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
+
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -12,8 +15,9 @@ import java.util.Base64;
 import java.util.List;
 
 public abstract class DefaultAuto extends LinearOpMode {
-    protected Robot robot;
 
+
+    protected Robot robot;
     protected final List<Double> woblle_states = new ArrayList<>();
     protected static int woblle_state = 0;
     protected final List<Double> woblle_grab_states = new ArrayList<>();
@@ -47,7 +51,7 @@ public abstract class DefaultAuto extends LinearOpMode {
         robot.rearLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        setDriveZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.setDriveZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
         robot.frontLeft.setTargetPosition(0);
@@ -157,6 +161,7 @@ public abstract class DefaultAuto extends LinearOpMode {
 
     }
 
+
     protected void move_slow(double cm){
         robot.frontLeft.setPower(0.6);
         robot.rearLeft.setPower(0.6);
@@ -167,7 +172,7 @@ public abstract class DefaultAuto extends LinearOpMode {
     }
 
     protected void leftArm_Down(){
-        robot.leftArm.setPosition(0.975);
+        robot.leftArm.setPosition(0.92);
 
     }
 
@@ -178,7 +183,12 @@ public abstract class DefaultAuto extends LinearOpMode {
 
     protected void arms_restart(){
         robot.rightArm.setPosition(0.5);
-    }
+        robot.leftArm.setPosition(0.6);
 
+    }
+    protected void rightArm_Down(){
+        robot.rightArm.setPosition(-0.98);
+
+    }
 
 }
