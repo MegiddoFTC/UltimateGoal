@@ -3,6 +3,9 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
+import org.firstinspires.ftc.robotcore.external.navigation.Position;
+import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
+
 //@Disabled
 @Autonomous(name="Auto_A")
 public class Auto_A extends DefaultAuto {
@@ -15,10 +18,22 @@ public class Auto_A extends DefaultAuto {
         telemetry.addData("status", "start");
         telemetry.update();
 
+        imu.startAccelerationIntegration(new Position(), new Velocity(), 1000);
 
-       // turn(20);
-        robot.gyroTurn(0.2,90);
-/*
+        while (opModeIsActive()) {
+            telemetry.addData("Runtime", "%.03f", getRuntime());
+            telemetry.update();
+            telemetry.update();
+            break;
+        }
+
+
+
+
+      //  gyroTurn(0.1,2);
+
+
+
         //restart
      shootPower(0.75);
      closeWoblle();
@@ -30,18 +45,19 @@ public class Auto_A extends DefaultAuto {
 
 
 
-        move_foreword(300);
-        setpower(0.7);
+        move_foreword(300,1);
+       // setpower(0.7);
         sleep(50);
-        meconum(100);
-        setpower(1);
+        meconum(100,0.7);
+        gyroTurn(0.15,1);
+     //   setpower(1);
         sleep(100);
         toppPower(1);
-        sleep(350);
+        sleep(600);
         toppPower(0);
-        sleep(                                                                                                                                                          200);
+        sleep(800);
         toppPower(1);
-        sleep(300);
+        sleep(600);
         pumpPower(1);
         sleep(1600);
         shootPower(0);
@@ -52,8 +68,8 @@ public class Auto_A extends DefaultAuto {
         //woblle #A
 
         sleep(50);
-        move_foreword(50);
-        meconum(-65);
+        move_foreword(50,1);
+        meconum(-65,1);
         turnWoblle(0.6);
         sleep(300);
         openWoblle();
@@ -69,11 +85,13 @@ public class Auto_A extends DefaultAuto {
 
 
 
-*/
+
         while (opModeIsActive()) {
 
 
             //turn(100);
         }
     }
+
+
 }

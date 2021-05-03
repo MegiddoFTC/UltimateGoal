@@ -45,11 +45,7 @@ import java.util.Locale;
 
 public class Robot extends LinearOpMode{
 
-    BNO055IMU imu;
-    Orientation angles;
-    static final double     HEADING_THRESHOLD       = 1 ;
-    static final double     P_TURN_COEFF            = 0.1;
-    static final double     P_DRIVE_COEFF           = 0.15;
+
     protected DcMotor rearLeft  ;
     protected DcMotor frontLeft ;
     protected DcMotor rearRight ;
@@ -67,22 +63,22 @@ public class Robot extends LinearOpMode{
     protected Servo woblleLift2Servo;
     protected Servo rightArm;
     protected Servo leftArm;
-
-    protected final List<Double> woblle_states = new ArrayList<>();
-    protected static int woblle_state = 0;
-    protected final List<Double> woblle_grab_states = new ArrayList<>();
-    protected static int woblle_grab_state = 0;
+//
+//    protected final List<Double> woblle_states = new ArrayList<>();
+//    protected static int woblle_state = 0;
+//    protected final List<Double> woblle_grab_states = new ArrayList<>();
+//    protected static int woblle_grab_state = 0;
 
     @Override
     public void runOpMode(){
-        new Robot(hardwareMap);
+
     }
 
     public Robot(HardwareMap hardwareMap) {
-        rearLeft  = hardwareMap.get(DcMotor.class, "RearLeft");
-        frontLeft = hardwareMap.get(DcMotor.class, "FrontLeft");
-        rearRight = hardwareMap.get(DcMotor.class, "RearRight");
-        frontRight= hardwareMap.get(DcMotor.class, "FrontRight");
+        rearLeft  = (DcMotorEx)hardwareMap.get(DcMotor.class, "RearLeft");
+        frontLeft = (DcMotorEx)hardwareMap.get(DcMotor.class, "FrontLeft");
+        rearRight = (DcMotorEx)hardwareMap.get(DcMotor.class, "RearRight");
+        frontRight= (DcMotorEx)hardwareMap.get(DcMotor.class, "FrontRight");
         pumpMotor = hardwareMap.get(DcMotor.class, "PumpMotor");
         //pumpMotor2 = hardwareMap.get(DcMotorEx.class, "PumpMotor2");
         shootMotor = hardwareMap.get(DcMotor.class,"shootMotor");
@@ -95,15 +91,7 @@ public class Robot extends LinearOpMode{
         rightArm = hardwareMap.servo.get("rightArm");
         leftArm = hardwareMap.servo.get("leftArm");
 
-        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
-        parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
-        parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
-        parameters.calibrationDataFile = "BNO055IMUCalibration.json";
-        parameters.loggingEnabled = true;
-        parameters.loggingTag = "IMU";
-        parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
-        imu = hardwareMap.get(BNO055IMU.class, "imu");
-        imu.initialize(parameters);
+
 
         //telemetry.addData("frontLeft", frontLeft);
         //telemetry.update();
@@ -186,7 +174,7 @@ public class Robot extends LinearOpMode{
     public void driveRight() {
         powerDriveMotors(-1, 1, 1, -1);
     }
-    */
+
     public void pumpPower(double pumpPower) { //set power in the pump motor
         //pumpMotor.setPower(pumpPower);
         pumpMotor.setPower(pumpPower);
@@ -217,126 +205,6 @@ public class Robot extends LinearOpMode{
         setWoblleLift(woblle_states.get(
                 woblle_state = Util.clamp(woblle_state-1, 0, woblle_states.size()-1)));
     }
-
-    public void gyroTurn (  double speed, double angle) {
-        while (opModeIsActive() && !onHeading(speed, angle, P_TURN_COEFF)) {
-            telemetry.update();
-
-        }
-    }
-
-    public void gyroHold( double speed, double angle, double holdTime) {
-        ElapsedTime holdTimer = new ElapsedTime();
-        holdTimer.reset();
-        while (opModeIsActive() && (holdTimer.time() < holdTime)) {
-            onHeading(speed, angle, P_TURN_COEFF);
-            telemetry.update();
-        }
-
-        frontRight.setPower(0);
-        frontLeft.setPower(0);
-        rearRight.setPower(0);
-        rearLeft.setPower(0);
-
-    }
-
-    boolean onHeading(double speed, double angle, double PCoeff) {
-        double error;
-        double steer;
-        boolean onTarget = false;
-        double leftSpeed;
-        double rightSpeed;
-
-        error = getError(angle);
-
-        if (Math.abs(error) <= HEADING_THRESHOLD) {
-            steer = 0.0;
-            leftSpeed  = 0.0;
-            rightSpeed = 0.0;
-            onTarget = true;
-        }else {
-            steer = getSteer(error, PCoeff);
-            rightSpeed  = speed * steer;
-            leftSpeed   = -rightSpeed;
-        }
-        frontLeft.setPower(leftSpeed);
-        frontRight.setPower(rightSpeed);
-        rearLeft.setPower(leftSpeed);
-        rearRight.setPower(rightSpeed);
-        telemetry.addData("Target", "%5.2f", angle);
-        telemetry.addData("Err/St", "%5.2f/%5.2f", error, steer);
-        telemetry.addData("Speed.", "%5.2f:%5.2f", leftSpeed, rightSpeed);
-        return onTarget;
-    }
-
-
-    public double getError(double targetAngle) {
-
-        double robotError;
-
-        robotError = targetAngle - angles.firstAngle;
-        while (robotError > 180)  robotError -= 360;
-        while (robotError <= -180) robotError += 360;
-        return robotError;
-    }
-
-
-    public double getSteer(double error, double PCoeff) {
-        return Range.clip(error * PCoeff, -1, 1);
-    }
-
-    void composeTelemetry() {
-
-        telemetry.addAction(new Runnable() {
-            @Override
-            public void run() {
-                angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-            }
-        });
-        telemetry.addLine()
-                .addData("status", new Func<String>() {
-                    @Override
-                    public String value() {
-                        return imu.getSystemStatus().toShortString();
-                    }
-                })
-                .addData("calib", new Func<String>() {
-                    @Override
-                    public String value() {
-                        return imu.getCalibrationStatus().toString();
-                    }
-                });
-
-        telemetry.addLine()
-                .addData("heading", new Func<String>() {
-                    @Override
-                    public String value() {
-                        return formatAngle(angles.angleUnit, angles.firstAngle);
-                    }
-                })
-                .addData("roll", new Func<String>() {
-                    @Override
-                    public String value() {
-                        return formatAngle(angles.angleUnit, angles.secondAngle);
-                    }
-                })
-                .addData("pitch", new Func<String>() {
-                    @Override
-                    public String value() {
-                        return formatAngle(angles.angleUnit, angles.thirdAngle);
-                    }
-                });
-    }
-
-    String formatAngle(AngleUnit angleUnit, double angle) {
-        return formatDegrees(AngleUnit.DEGREES.fromUnit(angleUnit, angle));
-    }
-
-    String formatDegrees(double degrees){
-        return String.format(Locale.getDefault(), "%.1f", AngleUnit.DEGREES.normalize(degrees));
-    }
-
-
-
+*/
 
 }

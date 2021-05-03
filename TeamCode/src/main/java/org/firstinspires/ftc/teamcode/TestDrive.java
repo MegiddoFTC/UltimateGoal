@@ -40,7 +40,7 @@ public class TestDrive extends Default {
             shootPower(0.86);
         }
         else if (gamepad2.x){
-            shootPower(0.65);
+            shootPower(0.58);
 
             //time = getRuntime();
         } else if (gamepad2.b){ //stop shoot and topp motors

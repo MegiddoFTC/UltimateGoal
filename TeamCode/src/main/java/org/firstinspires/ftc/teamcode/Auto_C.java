@@ -27,11 +27,12 @@ public class Auto_C extends DefaultAuto {
 
 
 
-        move_foreword(300);
-        setpower(0.7);
+        move_foreword(300,1);
+        //setpower(0.5);
         sleep(50);
-        meconum(100);
-        setpower(1);
+        //meconum(100);
+        turn(16,0.5);
+        //setpower(1);
         sleep(100);
         toppPower(1);
         sleep(450);
@@ -40,27 +41,54 @@ public class Auto_C extends DefaultAuto {
         toppPower(1);
         sleep(300);
         pumpPower(1);
-        sleep(1600);
+        sleep(1800);
         shootPower(0);
         toppPower(0);
         pumpPower(0);
+        turn(-16,1);
+       // gyroTurn(0.1,1);
+
+
+        //rings down
+
+
+        move_foreword(-100,0.7);
+        sleep(100);
+        meconum(-50,0.7);
+        leftArm_Down();
+       // setpower(0.7);
+        shootPower(0.7);
+        move_foreword(-500,0.7);
+        arms_restart();
+
+        //shoot 2
+
+        sleep(100);
+        meconum(80,0.7);
+        meconum(0.1,1);
+        pumpPower(1);
+        move_foreword(50,0.7);
+        sleep(200);
+        gyroTurn(0.1,1);
+        toppPower(1);
+        sleep(600);
+        toppPower(0);
+        move_foreword(200,1);
+        toppPower(1);
 
 
         //woblle #C
-       move_foreword(300);
+
+
+
+        move_foreword(300,1);
+        //setpower(0.7);
+        meconum(50,0.7);
+        //gyroTurn(0.1,1);
         turnWoblle(0.6);
         sleep(300);
         openWoblle();
         sleep(600);
-
-        //rings down
-        move_foreword(-100);
-        sleep(100);
-        meconum(-100);
-        leftArm_Down();
-        setpower(0.7);
-        move_foreword(-500);
-        arms_restart();
 
 
 

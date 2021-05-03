@@ -209,8 +209,8 @@ public abstract class Default extends OpMode {
     }
 
     protected void armsDown(){
-        leftArm.setPosition(0.97);
-        rightArm.setPosition(-0.87);
+        leftArm.setPosition(0.92);
+        rightArm.setPosition(0.13);
 
 
     }

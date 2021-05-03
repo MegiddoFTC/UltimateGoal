@@ -27,11 +27,12 @@ public class Auto_B extends DefaultAuto {
 
 
 
-        move_foreword(300);
-        setpower(0.7);
+        move_foreword(280,1);
+       // setpower(0.7);
         sleep(50);
-        meconum(100);
-        setpower(1);
+        meconum(90,1);
+        gyroTurn(0.18,-1);
+        //setpower(1);
         sleep(100);
         toppPower(1);
         sleep(450);
@@ -40,7 +41,7 @@ public class Auto_B extends DefaultAuto {
         toppPower(1);
         sleep(300);
         pumpPower(1);
-        sleep(1600);
+        sleep(1800);
         shootPower(0);
         toppPower(0);
         pumpPower(0);
@@ -48,10 +49,10 @@ public class Auto_B extends DefaultAuto {
 
         //woblle #B
         sleep(50);
-        move_foreword(180);
-        meconum(80);
+        move_foreword(180,1);
+        meconum(120,1);
         turnWoblle(0.6);
-        sleep(300);
+        sleep(450);
         openWoblle();
         sleep(600);
 
@@ -59,26 +60,28 @@ public class Auto_B extends DefaultAuto {
 
         //pump ring
 
-       // meconum(-45);
-        turn(205);
+        turn(205,1);
+        //gyroTurn(0.18,180);
         sleep(200);
-        //pumpPower(1);
-        move_foreword(200);
-        meconum(100);
-pumpPower(1);
-move_foreword(80);
-pumpPower(0);
-shootPower(0.75);
-        turn(-195);
-        move_foreword(100);
+        move_foreword(200,1);
+        meconum(120,1);
+        pumpPower(1);
+        move_foreword(80,1);
+        pumpPower(0);
+        shootPower(0.75);
+        turn(-195,1);
+
+        //shoot 2
+
+        move_foreword(100,1);
         sleep(200);
         toppPower(1);
         pumpPower(1);
         sleep(1500);
-toppPower(0);
-shootPower(0);
-pumpPower(0);
-move_foreword(60);
+        toppPower(0);
+        shootPower(0);
+        pumpPower(0);
+        move_foreword(60,1);
 
         while (opModeIsActive()) {
 
