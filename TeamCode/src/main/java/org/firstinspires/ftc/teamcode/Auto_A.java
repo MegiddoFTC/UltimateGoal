@@ -7,7 +7,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 
 //@Disabled
-@Autonomous(name="Auto_A")
+//@Autonomous(name="Auto_A")
 public class Auto_A extends DefaultAuto {
 
     @Override
@@ -46,13 +46,13 @@ public class Auto_A extends DefaultAuto {
 
 
 
-        move_foreword(300,1);
+        move_foreword(290,1);
        // setpower(0.7);
         sleep(50);
-        meconum(100,0.7);
-        gyroTurn(0.15,1);
+        meconum(85,0.7);
+        gyroTurn(0.15,-1);
      //   setpower(1);
-        sleep(100);
+        sleep(800);
         toppPower(1);
         sleep(600);
         toppPower(0);
@@ -60,7 +60,7 @@ public class Auto_A extends DefaultAuto {
         toppPower(1);
         sleep(600);
         pumpPower(1);
-        sleep(1600);
+        sleep(2000);
         shootPower(0);
         toppPower(0);
         pumpPower(0);

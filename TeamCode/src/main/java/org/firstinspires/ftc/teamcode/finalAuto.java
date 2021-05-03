@@ -14,6 +14,7 @@ import org.firstinspires.ftc.teamcode.subsystems.VisionSubsystem;
 public class finalAuto extends DefaultAuto {
 
     protected VisionSubsystem vision;
+
     private int rings;
 
     @Override
@@ -26,12 +27,20 @@ public class finalAuto extends DefaultAuto {
 
         vision.set_for_autonomous();
 
-        telemetry.addData("time", this::getRuntime);
-        telemetry.addData("orange pixels", vision::getOrangePixels);
-        telemetry.update();
-
         super.init_auto();
         boolean stop = false;
+
+        telemetry.addData("time", this::getRuntime);
+
+        telemetry.addData("orange pixels", vision::getOrangePixels);
+        telemetry.update();
+        while (opModeIsActive()){
+//            vision = new VisionSubsystem();
+//            vision.set_for_autonomous();
+//            telemetry.addData("time", this::getRuntime);
+//            telemetry.addData("orange pixels", vision::getOrangePixels);
+            telemetry.update();
+        }
         waitForStart();
 
         telemetry.addData("status", "start");
@@ -74,13 +83,13 @@ public class finalAuto extends DefaultAuto {
 
 
 
-        move_foreword(300,1);
+        move_foreword(290,1);
         // setpower(0.7);
         sleep(50);
-        meconum(100,0.7);
-        gyroTurn(0.15,1);
+        meconum(85,0.7);
+        gyroTurn(0.2,-1);
         //   setpower(1);
-        sleep(100);
+        sleep(800);
         toppPower(1);
         sleep(600);
         toppPower(0);
@@ -88,7 +97,7 @@ public class finalAuto extends DefaultAuto {
         toppPower(1);
         sleep(600);
         pumpPower(1);
-        sleep(1600);
+        sleep(2000);
         shootPower(0);
         toppPower(0);
         pumpPower(0);
@@ -112,7 +121,7 @@ public class finalAuto extends DefaultAuto {
             rightArm_Down();
             sleep(200);
             arms_restart();
-            turn(-20,0.5);
+            turn(-20,0.6);
             leftArm_Down();
             rightArm_Down();
             sleep(100);
@@ -128,6 +137,7 @@ public class finalAuto extends DefaultAuto {
     }
 
     private void wobell_B() {
+
         //restart
         shootPower(0.75);
         closeWoblle();
@@ -161,10 +171,10 @@ public class finalAuto extends DefaultAuto {
 
         //woblle #B
         sleep(50);
-        move_foreword(180,1);
+        move_foreword(200,1);
         meconum(120,1);
         turnWoblle(0.6);
-        sleep(450);
+        sleep(300);
         openWoblle();
         sleep(600);
 
@@ -175,7 +185,7 @@ public class finalAuto extends DefaultAuto {
         turn(205,1);
         //gyroTurn(0.18,180);
         sleep(200);
-        move_foreword(200,1);
+        move_foreword(220,1);
         meconum(120,1);
         pumpPower(1);
         move_foreword(80,1);
@@ -232,7 +242,7 @@ public class finalAuto extends DefaultAuto {
         toppPower(0);
         pumpPower(0);
         turn(-16,1);
-        // gyroTurn(0.1,1);
+        gyroTurn(0.18,1);
 
 
         //rings down
@@ -243,7 +253,7 @@ public class finalAuto extends DefaultAuto {
         // meconum(-50,0.7);
         leftArm_Down();
         // setpower(0.7);
-        shootPower(0.63);
+        shootPower(0.65);
         move_foreword(-290,0.7);
         arms_restart();
 
@@ -253,15 +263,15 @@ public class finalAuto extends DefaultAuto {
         meconum(80,0.7);
         //gyroTurn(0.18,1);
         pumpPower(1);
-        move_foreword(50,0.7);
+        move_foreword(65,0.7);
         sleep(200);
         //gyroTurn(0.18,1);
         toppPower(1);
-        sleep(1200);
+        sleep(1600);
         toppPower(0);
         shootPower(0.76);
         sleep(200);
-        move_foreword(245,1);
+        move_foreword(245,0.6);
         move_foreword(-22,1);
         gyroTurn(0.18,1);
         toppPower(1);
@@ -282,7 +292,7 @@ public class finalAuto extends DefaultAuto {
         turnWoblle(0.6);
         sleep(300);
         openWoblle();
-        sleep(600);
+        //sleep(600);
         move_foreword(-240,1);
         shootPower(0);
         pumpPower(0);

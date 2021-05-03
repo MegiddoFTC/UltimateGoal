@@ -37,7 +37,7 @@ public class TestDrive extends Default {
             pumpPower(0);
         }
         if (gamepad2.a){
-            shootPower(0.86);
+            shootPower(0.80);
         }
         else if (gamepad2.x){
             shootPower(0.58);

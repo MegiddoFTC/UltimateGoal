@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 //@Disabled
-@Autonomous(name="Auto_B")
+//@Autonomous(name="Auto_B")
 public class Auto_B extends DefaultAuto {
 
     @Override
@@ -52,7 +52,7 @@ public class Auto_B extends DefaultAuto {
         move_foreword(180,1);
         meconum(120,1);
         turnWoblle(0.6);
-        sleep(450);
+        sleep(550);
         openWoblle();
         sleep(600);
 

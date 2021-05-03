@@ -29,6 +29,8 @@ public abstract class DefaultAuto extends LinearOpMode {
 
     BNO055IMU imu;
     Orientation angles;
+
+
     static final double COUNTS_PER_MOTOR_REV = 2240;
     static final double WHEEL_DIAMETER_MM = 75;
     static final double DRIVE_GEAR_REDUCTION = 15;
@@ -58,10 +60,6 @@ public abstract class DefaultAuto extends LinearOpMode {
     protected final List<Double> woblle_grab_states = new ArrayList<>();
     protected static int woblle_grab_state = 0;
     */
-
-
-
-    private int state = 0;
 
     public void init_auto() {
         rearLeft  = (DcMotorEx)hardwareMap.get(DcMotor.class, "RearLeft");
@@ -249,7 +247,7 @@ public abstract class DefaultAuto extends LinearOpMode {
     }
 
     public void meconum(double cm,double speed) {
-        state++;
+
 
         frontLeft.setTargetPosition(frontLeft.getCurrentPosition() + (int)Util.cm2ticks(cm));
         rearLeft.setTargetPosition(rearLeft.getCurrentPosition() + (int)Util.cm2ticks(-cm));
