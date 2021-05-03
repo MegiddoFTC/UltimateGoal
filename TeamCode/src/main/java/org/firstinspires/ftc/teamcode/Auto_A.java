@@ -13,6 +13,7 @@ public class Auto_A extends DefaultAuto {
     @Override
     public void runOpMode() {
         super.init_auto();
+        boolean stop = false;
         waitForStart();
 
         telemetry.addData("status", "start");
@@ -75,6 +76,20 @@ public class Auto_A extends DefaultAuto {
         openWoblle();
         sleep(600);
       //  move_foreword(-50);
+
+        //dance
+        while (opModeIsActive()){
+            turn(20,0.5);
+            leftArm_Down();
+            rightArm_Down();
+            sleep(200);
+            arms_restart();
+            turn(-20,0.5);
+            leftArm_Down();
+            rightArm_Down();
+            sleep(100);
+            arms_restart();
+        }
 
 
 
