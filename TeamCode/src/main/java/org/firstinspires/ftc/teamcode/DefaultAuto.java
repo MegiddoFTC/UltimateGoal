@@ -91,13 +91,21 @@ public abstract class DefaultAuto extends LinearOpMode {
 
         pumpMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         feedMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        shootMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        shootMotor2.setDirection(DcMotorSimple.Direction.FORWARD);
+        shootMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        shootMotor2.setDirection(DcMotorSimple.Direction.REVERSE);
 
         rearLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rearRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        shootMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        shootMotor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+
+        shootMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        shootMotor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         /*
         woblle_states.add(0.0);
         woblle_states.add(0.2);
@@ -176,6 +184,8 @@ public abstract class DefaultAuto extends LinearOpMode {
             rearLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             rearRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+            telemetry.update();
         }
     }
 
@@ -221,6 +231,8 @@ public abstract class DefaultAuto extends LinearOpMode {
             rearLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             rearRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+            telemetry.update();
         }
     }
     //protected void PumpOnEnter(){
@@ -427,6 +439,61 @@ public abstract class DefaultAuto extends LinearOpMode {
 
     String formatDegrees(double degrees){
         return String.format(Locale.getDefault(), "%.1f", AngleUnit.DEGREES.normalize(degrees));
+    }
+
+
+    protected void restart_high(){
+        shootPower(0.75);
+        closeWoblle();
+        arms_restart();
+        sleep(400);
+    }
+
+    protected void restart_power(){
+        shootPower(0.5);
+        closeWoblle();
+        arms_restart();
+        sleep(400);
+    }
+
+    protected void powerShoot(){
+
+
+        //shoot #1
+
+        toppPower(1);
+        sleep(200);
+        toppPower(0);
+        sleep(100);
+
+        // move to power shoot #2
+
+        meconum(50,0.3);
+        gyroTurn(0.2,0);
+        sleep(100);
+
+        // shoot #2
+
+        toppPower(1);
+        sleep(1200);
+        toppPower(0);
+        shootPower(0.56);
+        // move to power shoot #3
+
+        meconum(40,0.3);
+        gyroTurn(0.2,0);
+        sleep(200);
+
+        // shoot #3
+
+        pumpPower(1);
+        toppPower(1);
+        sleep(3500);
+        pumpPower(0);
+        toppPower(0);
+        shootPower(0);
+        gyroTurn(0.2,0);
+
     }
 
 

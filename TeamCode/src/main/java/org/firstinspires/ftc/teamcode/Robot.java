@@ -114,6 +114,11 @@ public class Robot extends LinearOpMode{
         shootMotor2.setDirection(DcMotorSimple.Direction.FORWARD);
 
 
+
+        shootMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        shootMotor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+
         //setDriveRunMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         //setDriveRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         //frontLeft.setTargetPosition(0);

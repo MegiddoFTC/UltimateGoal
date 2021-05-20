@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 //@Disabled
-//@Autonomous(name="Auto_B")
+@Autonomous(name="Auto_B")
 public class Auto_B extends DefaultAuto {
 
     @Override
@@ -16,12 +16,13 @@ public class Auto_B extends DefaultAuto {
         telemetry.update();
 
 
-        //restart
-        shootPower(0.75);
-        closeWoblle();
-        arms_restart();
-        sleep(400);
+        turnWoblle(0.5);
 
+        //openWoblle();
+/*
+
+
+        restart_high();
 
         //shoot 1
 
@@ -85,7 +86,7 @@ public class Auto_B extends DefaultAuto {
 
         while (opModeIsActive()) {
 
-
+*/
         }
     }
-}
+

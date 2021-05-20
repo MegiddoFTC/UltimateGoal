@@ -34,11 +34,7 @@ public class finalAuto extends DefaultAuto {
 
         telemetry.addData("orange pixels", vision::getOrangePixels);
         telemetry.update();
-        while (opModeIsActive()){
-//            vision = new VisionSubsystem();
-//            vision.set_for_autonomous();
-//            telemetry.addData("time", this::getRuntime);
-//            telemetry.addData("orange pixels", vision::getOrangePixels);
+        while (opModeIsActive()) {
             telemetry.update();
         }
         waitForStart();
@@ -52,13 +48,6 @@ public class finalAuto extends DefaultAuto {
         telemetry.addData("rings", () -> rings);
         telemetry.update();
 
-        while (opModeIsActive()) {
-            telemetry.addData("Runtime", "%.03f", getRuntime());
-            telemetry.update();
-            telemetry.update();
-            break;
-        }
-
         switch (rings) {
             case 0:
                 wobell_A();
@@ -71,69 +60,66 @@ public class finalAuto extends DefaultAuto {
                 break;
         }
     }
+
     private void wobell_A() {
-        //restart
-        shootPower(0.75);
-        closeWoblle();
-        arms_restart();
-        sleep(400);
 
+        restart_power();
 
-        //shoot 1
+        // move to #A
 
+        move_foreword(350,0.7);
+        gyroTurn(0.2,0);
+        sleep(100);
+        meconum(30,0.7);
 
+        //put wobble
 
-        move_foreword(290,1);
-        // setpower(0.7);
-        sleep(50);
-        meconum(85,0.7);
-        gyroTurn(0.2,-1);
-        //   setpower(1);
-        sleep(800);
-        toppPower(1);
-        sleep(600);
-        toppPower(0);
-        sleep(800);
-        toppPower(1);
-        sleep(600);
-        pumpPower(1);
-        sleep(2000);
-        shootPower(0);
-        toppPower(0);
-        pumpPower(0);
-
-
-        //woblle #A
-
-        sleep(50);
-        move_foreword(50,1);
-        meconum(-65,1);
+        turnWoblle(0.9);
         turnWoblle(0.6);
-        sleep(300);
+        sleep(1300);
         openWoblle();
-        sleep(600);
-        //  move_foreword(-50);
+        sleep(400);
+        gyroTurn(0.2,0);
+        sleep(200);
 
-        //dance
-        while (opModeIsActive()){
-            turn(20,0.5);
-            leftArm_Down();
-            rightArm_Down();
-            sleep(200);
-            arms_restart();
-            turn(-20,0.6);
-            leftArm_Down();
-            rightArm_Down();
-            sleep(100);
-            arms_restart();
-        }
+        //move to power shot point
 
+        move_foreword(-50,1);
+        gyroTurn(0.2,0);
+        sleep(200);
+        meconum(146,0.5);
+        sleep(50);
+        gyroTurn(0.2,0);
+        sleep(1000);
+
+        //power shot
+
+        powerShoot();
+
+        //take wobble #2
+
+        gyroTurn(0.2,0);
+        //turn(180,0.7);
+        move_foreword(-255,0.7);
+        gyroTurn(0.2,0);
+        sleep(200);
+        turnWoblle(0.41);
+        openWoblle();
+        meconum(-68,0.5);
+        sleep(405);
+        closeWoblle();
+        sleep(800);
+
+        //put wobble #2 in #A and parking in white line
+
+        turnWoblle(0.7);
+        turn(-30,0.7);
+        move_foreword(330,1);
+        openWoblle();
 
         while (opModeIsActive()) {
-
-
-            //turn(100);
         }
+
     }
 
     private void wobell_B() {
@@ -199,7 +185,7 @@ public class finalAuto extends DefaultAuto {
         sleep(200);
         toppPower(1);
         pumpPower(1);
-        sleep(1500);
+        sleep(2000);
         toppPower(0);
         shootPower(0);
         pumpPower(0);
@@ -230,19 +216,19 @@ public class finalAuto extends DefaultAuto {
         turn(16,0.5);
         //setpower(1);
         sleep(100);
-        toppPower(1);
+        toppPower(0.7);
         sleep(450);
         toppPower(0);
         sleep(                                                                                                                                                          200);
-        toppPower(1);
+        toppPower(0.7);
         sleep(300);
         pumpPower(1);
         sleep(1800);
         shootPower(0);
         toppPower(0);
         pumpPower(0);
-        turn(-16,1);
-        gyroTurn(0.18,1);
+        turn(-15.5,1);
+     //   gyroTurn(0.18,1);
 
 
         //rings down
@@ -253,8 +239,8 @@ public class finalAuto extends DefaultAuto {
         // meconum(-50,0.7);
         leftArm_Down();
         // setpower(0.7);
-        shootPower(0.65);
-        move_foreword(-290,0.7);
+        shootPower(0.63);
+        move_foreword(-290,0.8);
         arms_restart();
 
         //shoot 2
@@ -266,7 +252,7 @@ public class finalAuto extends DefaultAuto {
         move_foreword(65,0.7);
         sleep(200);
         //gyroTurn(0.18,1);
-        toppPower(1);
+        toppPower(0.7);
         sleep(1600);
         toppPower(0);
         shootPower(0.76);
@@ -274,7 +260,7 @@ public class finalAuto extends DefaultAuto {
         move_foreword(245,0.6);
         move_foreword(-22,1);
         gyroTurn(0.18,1);
-        toppPower(1);
+        toppPower(0.7);
         sleep(2400);
         toppPower(0);
 
@@ -283,8 +269,8 @@ public class finalAuto extends DefaultAuto {
 
 
 
-        move_foreword(340,1);
-        meconum(-50,1);
+        move_foreword(310,1);
+        //meconum(-50,1);
 
         //setpower(0.7);
         //meconum(50,0.7);
@@ -292,7 +278,7 @@ public class finalAuto extends DefaultAuto {
         turnWoblle(0.6);
         sleep(300);
         openWoblle();
-        //sleep(600);
+        sleep(100);
         move_foreword(-240,1);
         shootPower(0);
         pumpPower(0);

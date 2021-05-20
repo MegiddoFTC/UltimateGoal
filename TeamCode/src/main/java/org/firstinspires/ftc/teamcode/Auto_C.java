@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 //@Disabled
-//@Autonomous(name="Auto_C")
+@Autonomous(name="Auto_C")
 public class Auto_C extends DefaultAuto {
 
     @Override
@@ -16,16 +16,9 @@ public class Auto_C extends DefaultAuto {
         telemetry.update();
 
 
-        //restart
-        shootPower(0.75);
-        closeWoblle();
-        arms_restart();
-        sleep(400);
-
+        restart_high();
 
         //shoot 1
-
-
 
         move_foreword(300,1);
         //setpower(0.5);
@@ -34,31 +27,31 @@ public class Auto_C extends DefaultAuto {
         turn(16,0.5);
         //setpower(1);
         sleep(100);
-        toppPower(1);
+        toppPower(0.7);
         sleep(450);
         toppPower(0);
         sleep(                                                                                                                                                          200);
-        toppPower(1);
+        toppPower(0.7);
         sleep(300);
         pumpPower(1);
         sleep(1800);
         shootPower(0);
         toppPower(0);
         pumpPower(0);
-        turn(-16,1);
-        gyroTurn(0.18,1);
+        turn(-15.5,1);
+        //   gyroTurn(0.18,1);
 
 
         //rings down
 
 
-      //  move_foreword(-100,0.7);
+        //  move_foreword(-100,0.7);
         sleep(100);
-       // meconum(-50,0.7);
+        // meconum(-50,0.7);
         leftArm_Down();
-       // setpower(0.7);
+        // setpower(0.7);
         shootPower(0.63);
-        move_foreword(-290,0.7);
+        move_foreword(-290,0.8);
         arms_restart();
 
         //shoot 2
@@ -70,15 +63,15 @@ public class Auto_C extends DefaultAuto {
         move_foreword(65,0.7);
         sleep(200);
         //gyroTurn(0.18,1);
-        toppPower(1);
-        sleep(1400);
+        toppPower(0.7);
+        sleep(1600);
         toppPower(0);
         shootPower(0.76);
         sleep(200);
-        move_foreword(245,1);
+        move_foreword(245,0.6);
         move_foreword(-22,1);
         gyroTurn(0.18,1);
-        toppPower(1);
+        toppPower(0.7);
         sleep(2400);
         toppPower(0);
 
@@ -87,8 +80,8 @@ public class Auto_C extends DefaultAuto {
 
 
 
-        move_foreword(340,1);
-        meconum(-50,1);
+        move_foreword(310,1);
+        //meconum(-50,1);
 
         //setpower(0.7);
         //meconum(50,0.7);
@@ -96,10 +89,12 @@ public class Auto_C extends DefaultAuto {
         turnWoblle(0.6);
         sleep(300);
         openWoblle();
-        //sleep(600);
+        sleep(100);
         move_foreword(-240,1);
         shootPower(0);
         pumpPower(0);
+
+
 
 
         while (opModeIsActive()) {

@@ -44,12 +44,12 @@ public abstract class Default extends OpMode {
 
     public Default() {
         woblle_states.add(0.0);
-        woblle_states.add(0.2);
-        woblle_states.add(0.35);
+        //woblle_states.add(0.1);
+        woblle_states.add(0.6);
         woblle_states.add(1.0);
-           woblle_grab_states.add(0.0);
-        woblle_grab_states.add(0.2);
-        woblle_grab_states.add(1.0);
+           woblle_grab_states.add(1.0);
+        //woblle_grab_states.add(0.2);
+        woblle_grab_states.add(0.0);
     }
 
     @Override
@@ -89,9 +89,16 @@ public abstract class Default extends OpMode {
         pumpMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         feedMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         //pumpMotor2.setDirection(DcMotorSimple.Direction.FORWARD);
-        shootMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        shootMotor2.setDirection(DcMotorSimple.Direction.FORWARD);
+        shootMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        shootMotor2.setDirection(DcMotorSimple.Direction.REVERSE);
 
+
+        shootMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        shootMotor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+
+        woblleLift1Servo.setDirection(Servo.Direction.REVERSE);
+        woblleLift2Servo.setDirection(Servo.Direction.FORWARD);
 
         //setDriveRunMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         //setDriveRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -221,6 +228,12 @@ public abstract class Default extends OpMode {
 
 
     }
+    protected void armsPro() {
+        leftArm.setPosition(0.9);
+        rightArm.setPosition(1);
+
+    }
 }
+
 
 

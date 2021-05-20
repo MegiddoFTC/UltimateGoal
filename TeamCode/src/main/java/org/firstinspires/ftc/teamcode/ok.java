@@ -36,7 +36,7 @@ import org.openftc.easyopencv.OpenCvPipeline;
 import java.util.Locale;
 
 @Disabled
-@Autonomous(name = "OK")
+//@Autonomous(name = "OK")
 public class ok extends LinearOpMode {
     BNO055IMU imu;
     Orientation angles;
