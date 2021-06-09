@@ -49,7 +49,7 @@ public abstract class Default extends OpMode {
         woblle_states.add(1.0);
            woblle_grab_states.add(1.0);
         //woblle_grab_states.add(0.2);
-        woblle_grab_states.add(0.0);
+        woblle_grab_states.add(0.4);
     }
 
     @Override
@@ -72,6 +72,8 @@ public abstract class Default extends OpMode {
 
 
 
+
+
         telemetry.addData("frontLeft", frontLeft);
         telemetry.update();
 
@@ -89,8 +91,9 @@ public abstract class Default extends OpMode {
         pumpMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         feedMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         //pumpMotor2.setDirection(DcMotorSimple.Direction.FORWARD);
-        shootMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        shootMotor2.setDirection(DcMotorSimple.Direction.REVERSE);
+        shootMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        shootMotor2.setDirection(DcMotorSimple.Direction.FORWARD);
+       // woblleServo.setPosition(1);
 
 
         shootMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -111,7 +114,10 @@ public abstract class Default extends OpMode {
 //        woblleServo.setPosition(1);
 //        setWoblleLift(1);
 
-        //setDriveZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+
+
+        setDriveZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         resetStartTime();
     }
 
@@ -217,7 +223,7 @@ public abstract class Default extends OpMode {
 
     protected void armsDown(){
         leftArm.setPosition(0.92);
-        rightArm.setPosition(0.13);
+        rightArm.setPosition(0.15);
 
 
     }

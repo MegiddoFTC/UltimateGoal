@@ -4,8 +4,8 @@ import android.util.Pair;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-@TeleOp(name="autoDrive")
-public class autoDrive extends Default {
+//@TeleOp(name= "powerTest")
+public class powerTest extends Default {
     //double time = Double.MAX_VALUE;
 
 
@@ -24,19 +24,19 @@ public class autoDrive extends Default {
             driveLeft();
         } else if (gamepad1.right_bumper || gamepad1.dpad_right) {
           */  //driveRight();
-            arcadeControl(gamepad1.right_stick_y,-gamepad1.right_stick_x,-gamepad1.left_stick_x);
-            //powerDriveMotors(-gamepad1.left_stick_y, -gamepad1.right_stick_y);
+        arcadeControl(gamepad1.right_stick_y,-gamepad1.right_stick_x,-gamepad1.left_stick_x);
+        //powerDriveMotors(-gamepad1.left_stick_y, -gamepad1.right_stick_y);
 
 
-        if (gamepad1.right_trigger > 0.1) {//pump motor Enter on/off
+        /*if (gamepad1.right_trigger > 0.1) {//pump motor Enter on/off
             pumpPower(1);
-        } else if (gamepad1.left_trigger > 0.1) {
+'?        } else if (gamepad1.left_trigger > 0.1) {
             pumpPower(-1);
         } else {
             pumpPower(0);
-        }/*
+        }*/
         if (gamepad2.a){
-            shootPower(0.80);
+
         }
         else if (gamepad2.x){
             shootPower(0.62);
@@ -47,7 +47,7 @@ public class autoDrive extends Default {
             //toppPower(0);
             //time = Double.MAX_VALUE;
         }
-*/
+
         if (gamepad1.right_bumper  ){
             toppPower(0.73);
         } else if(gamepad1.left_bumper){
@@ -124,4 +124,3 @@ public class autoDrive extends Default {
     }
 
 }
-

@@ -18,7 +18,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 
 import java.util.Locale;
 //@Disabled
-@TeleOp(name = "anglesGyro")
+//@TeleOp(name = "anglesGyro")
 public class gyroTest extends OpMode {
     BNO055IMU imu2;
     Orientation angles2;

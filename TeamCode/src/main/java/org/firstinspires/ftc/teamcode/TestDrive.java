@@ -37,10 +37,11 @@ public class TestDrive extends Default {
             pumpPower(0);
         }
         if (gamepad2.a){
-            shootPower(0.80);
+            shootPower(0.65);
+           // shootPower();
         }
         else if (gamepad2.x){
-            shootPower(0.62);
+            shootPower(0.4);
 
             //time = getRuntime();
         } else if (gamepad2.b){ //stop shoot and topp motors
@@ -58,16 +59,19 @@ public class TestDrive extends Default {
         }
 
         if (Gamepad2.dpad_up_Pressed()) {
-            lowerWoblle();
-        } else if (Gamepad2.dpad_down_Pressed()) {
             liftWoblle();
+
+        } else if (Gamepad2.dpad_down_Pressed()) {
+            lowerWoblle();
+
 
         }
 
         if (Gamepad2.dpad_left_Pressed()) {
-            openWoblle();
+closeWoblle();
         } else if (Gamepad2.dpad_right_Pressed()) {
-            closeWoblle();
+            openWoblle();
+
         }
 
 

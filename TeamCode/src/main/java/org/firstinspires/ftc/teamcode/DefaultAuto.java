@@ -12,12 +12,17 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.Func;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
+import org.openftc.easyopencv.OpenCvCamera;
+import org.openftc.easyopencv.OpenCvCameraFactory;
+import org.openftc.easyopencv.OpenCvCameraRotation;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -61,6 +66,8 @@ public abstract class DefaultAuto extends LinearOpMode {
     protected static int woblle_grab_state = 0;
     */
 
+    protected OpenCvCamera camera;
+
     public void init_auto() {
         rearLeft  = (DcMotorEx)hardwareMap.get(DcMotor.class, "RearLeft");
         frontLeft = (DcMotorEx)hardwareMap.get(DcMotor.class, "FrontLeft");
@@ -77,6 +84,9 @@ public abstract class DefaultAuto extends LinearOpMode {
         shootMotor2 = hardwareMap.get(DcMotor.class,"shootMotor2");
         rightArm = hardwareMap.servo.get("rightArm");
         leftArm = hardwareMap.servo.get("leftArm");
+        camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"));
+
+        camera.openCameraDeviceAsync(() -> camera.startStreaming(1280, 800, OpenCvCameraRotation.UPRIGHT));
 
         rearLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -87,12 +97,17 @@ public abstract class DefaultAuto extends LinearOpMode {
         rightArm.setDirection(Servo.Direction.FORWARD);
         leftArm.setDirection(Servo.Direction.FORWARD);
 
+        woblleLift1Servo.setDirection(Servo.Direction.REVERSE);
+        woblleLift2Servo.setDirection(Servo.Direction.FORWARD);
+
+
         //wobMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
         pumpMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         feedMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        shootMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        shootMotor2.setDirection(DcMotorSimple.Direction.REVERSE);
+        shootMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        shootMotor2.setDirection(DcMotorSimple.Direction.FORWARD);
+
 
         rearLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -239,8 +254,8 @@ public abstract class DefaultAuto extends LinearOpMode {
         //pumpPower(1);
     //}
     protected void turnWoblle(double degris){
-        woblleLift1Servo.setPosition(degris);
-        woblleServo.setPosition(degris);
+       // woblleLift1Servo.setPosition(degris);
+       woblleLift2Servo.setPosition(degris);
         while (isBusy());
     }
 
@@ -250,7 +265,7 @@ public abstract class DefaultAuto extends LinearOpMode {
     }
 
     public void openWoblle() {
-        woblleServo.setPosition(0);
+        woblleServo.setPosition(0.4);
 
     }
 
@@ -303,7 +318,7 @@ public abstract class DefaultAuto extends LinearOpMode {
     }
 
     protected void leftArm_Down(){
-        leftArm.setPosition(0.92);
+        leftArm.setPosition(0.916);
 
     }
 
@@ -318,7 +333,7 @@ public abstract class DefaultAuto extends LinearOpMode {
 
     }
     protected void rightArm_Down(){
-        rightArm.setPosition(-0.98);
+        rightArm.setPosition(0.16);
 
     }
     public void gyroTurn (  double speed, double angle) {
@@ -443,16 +458,51 @@ public abstract class DefaultAuto extends LinearOpMode {
 
 
     protected void restart_high(){
-        shootPower(0.75);
+        shootPower(0.55);
         closeWoblle();
         arms_restart();
+        turnWoblle(0.3);
+        sleep(400);
+    }
+    protected void restart_high_C(){
+        shootPower(0.48);
+        closeWoblle();
+        arms_restart();
+        turnWoblle(0.3);
+        sleep(400);
+    }
+
+    protected void restart_power_2(){
+        shootPower(0.4);
+        closeWoblle();
+        arms_restart();
+        turnWoblle(0.0);
+
         sleep(400);
     }
 
     protected void restart_power(){
-        shootPower(0.5);
+        shootPower(0.38);
         closeWoblle();
         arms_restart();
+        turnWoblle(0.3);
+
+        sleep(400);
+    }
+    protected void restart_power_blue(){
+        shootPower(0.4);
+        closeWoblle();
+        arms_restart();
+        turnWoblle(0.3);
+
+        sleep(400);
+    }
+    protected void reatart_power_red(){
+        shootPower(0.4);
+        closeWoblle();
+        arms_restart();
+        turnWoblle(0.55);
+
         sleep(400);
     }
 
@@ -464,40 +514,64 @@ public abstract class DefaultAuto extends LinearOpMode {
         toppPower(1);
         sleep(200);
         toppPower(0);
-        sleep(100);
+        //sleep(100);
 
         // move to power shoot #2
 
-        meconum(50,0.3);
-        gyroTurn(0.2,0);
-        sleep(100);
+        meconum(50,0.35);
+       sleep(50);
+        gyroTurn(0.25,0);
+        sleep(75);
 
         // shoot #2
 
         toppPower(1);
-        sleep(1200);
+        sleep(1050);
         toppPower(0);
-        shootPower(0.56);
+        //shootPower(0.56);
+
         // move to power shoot #3
 
-        meconum(40,0.3);
-        gyroTurn(0.2,0);
-        sleep(200);
+        pumpPower(1);
+        meconum(45,0.35);
+        sleep(50);
+        gyroTurn(0.25,0);
+        sleep(50);
 
         // shoot #3
-
-        pumpPower(1);
         toppPower(1);
-        sleep(3500);
+        sleep(1700);
         pumpPower(0);
         toppPower(0);
         shootPower(0);
-        gyroTurn(0.2,0);
+       // gyroTurn(0.25,0);
 
     }
 
+    protected void highShoot(){
+        toppPower(1);
+        sleep(450);
+        toppPower(0);
+        sleep(400);
+        toppPower(1);
+        sleep(300);
+        pumpPower(1);
+        sleep(1800);
+        shootPower(0);
+        toppPower(0);
+        pumpPower(0);
+    }
 
+    protected void turn90(){
+        turn(100,0.6);
+    }
+    protected void turn_minus_90(){
+        turn(-100,0.6);
+    }
 
+    protected void turn180(){
+        turn(205,0.8);
+    }
 
 
 }
